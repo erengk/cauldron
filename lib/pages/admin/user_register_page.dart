@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cauldron/utils/customColors.dart';
@@ -12,9 +13,11 @@ class UserRegister extends StatefulWidget {
 }
 
 class _UserRegisterState extends State<UserRegister> {
-  late String firstName, id, lastName;
+  String firstName = "";
+  String id = "11111111111";
+  String lastName = "";
   String password = "123456";
-  String phone = "0555-555-5555";
+  String role = "waiter";
 
   final formkey = GlobalKey<FormState>();
   final firebaseAuth = FirebaseAuth.instance;
@@ -47,7 +50,7 @@ class _UserRegisterState extends State<UserRegister> {
                     passwordTextField(),
                     userFirstNameTextField(),
                     userLastNameTextField(),
-                    userPhoneNumberTextField(),
+                    userRoleTextField(),
                     CreateButton(),
                     backToLoginPage()
                   ],
@@ -72,7 +75,7 @@ class _UserRegisterState extends State<UserRegister> {
       validator: (value) {
         if (value!.isEmpty) {
         } else {
-          password = value;
+          password = value!;
         }
       },
       onSaved: (value) {
@@ -88,7 +91,9 @@ class _UserRegisterState extends State<UserRegister> {
       validator: (value) {
         if (value!.isEmpty) {
           return "This area is a required";
-        } else {}
+        } else {
+          firstName = value!;
+        }
       },
       onSaved: (value) {
         firstName = value!;
@@ -103,7 +108,9 @@ class _UserRegisterState extends State<UserRegister> {
       validator: (value) {
         if (value!.isEmpty) {
           return "This area is a required";
-        } else {}
+        } else {
+          lastName = value!;
+        }
       },
       onSaved: (value) {
         lastName = value!;
@@ -113,19 +120,19 @@ class _UserRegisterState extends State<UserRegister> {
     );
   }
 
-  TextFormField userPhoneNumberTextField() {
+  TextFormField userRoleTextField() {
     return TextFormField(
       validator: (value) {
         if (value!.isEmpty) {
         } else {
-          value = phone;
+          role = value!;
         }
       },
       onSaved: (value) {
-        phone = value!;
+        role = value!;
       },
       style: TextStyle(color: Colors.white),
-      decoration: customInputDecoration("Phone"),
+      decoration: customInputDecoration("Role"),
     );
   }
 
@@ -133,8 +140,9 @@ class _UserRegisterState extends State<UserRegister> {
     return TextFormField(
       validator: (value) {
         if (value!.isEmpty) {
-          return "This area is a required";
-        } else {}
+        } else {
+          id = value!;
+        }
       },
       onSaved: (value) {
         id = value!;
@@ -158,22 +166,23 @@ class _UserRegisterState extends State<UserRegister> {
 
   void signIn() async {
     if (formkey.currentState!.validate()) {
-      formkey.currentState!.save();
-      try {
-        var userResult = await firebaseAuth.createUserWithEmailAndPassword(
-            email: id, password: password);
-        formkey.currentState!.reset();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-                "The user has been successfully registered. You are directed to the login page"),
-          ),
-        );
-        Navigator.pushReplacementNamed(context, "/loginPage");
-      } catch (e) {
-        print(e.toString());
-      }
+      addToDatabase(id, firstName, lastName, role, password);
     } else {}
+  }
+
+  void addToDatabase(String id, String firstName, String lastName, String role,
+      String password) async {
+    final dbRef = FirebaseDatabase.instance.ref().child('waiters');
+
+    Map<String, String> waiters = {
+      'firstName': firstName,
+      'lastName': lastName,
+      'password': password,
+      'id': id,
+      'role': role,
+    };
+
+    dbRef.push().set(waiters);
   }
 
   Center backToLoginPage() {

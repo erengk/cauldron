@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cauldron/pages/auth/login_page.dart';
-import 'package:cauldron/pages/auth/sign_up.dart';
+import 'package:cauldron/pages/auth/sign_up_page.dart';
 import 'package:cauldron/pages/home_page.dart';
 import 'package:cauldron/utils/customColors.dart';
 import 'firebase_options.dart';
