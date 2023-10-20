@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1098307325660",
+    "project_id": "cauldron-rop",
+    "storage_bucket": "cauldron-rop.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1098307325660:android:27173bcdc2cde66387ae19",
+        "android_client_info": {
+          "package_name": "com.example.cauldron"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDY3FNRqXb-VuKqMBNXIRNWH3N8y6m8fY8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
