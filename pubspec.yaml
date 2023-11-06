@@ -37,13 +37,17 @@ dependencies:
   cupertino_icons: ^1.0.2
   json_serializable: ^6.2.0
   json_annotation: ^4.5.0
-
+  cloud_firestore: any
   dio: ^4.0.6
   provider: ^6.0.3
   firebase_core: ^2.1.1
   firebase_auth: ^4.1.1
   firebase_database: ^10.3.1
   qr_flutter: any
+  curved_navigation_bar: ^1.0.3
+
+
+
 
 dev_dependencies:
   flutter_test:

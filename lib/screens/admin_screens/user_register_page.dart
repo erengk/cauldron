@@ -1,4 +1,4 @@
-import 'package:firebase_core/firebase_core.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,10 +24,35 @@ class _UserRegisterState extends State<UserRegister> {
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
-    String topImage = "assets/topImage.png";
     return Scaffold(
-      body: appBody(height, topImage),
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: CustomColors.scaffoldBackgroundColor,
+        title: const Text('Cauldron'),
+      ),
+      backgroundColor: CustomColors.bodyBackgroundColor,
+      bottomNavigationBar: CurvedNavigationBar(
+        backgroundColor: CustomColors.bodyBackgroundColor,
+        color: CustomColors.scaffoldBackgroundColor,
+        animationDuration: Duration(milliseconds: 300),
+        onTap:(index) {
+          debugPrint("Current Index is $index");
+        },
+        items:[
+        Icon(
+            Icons.home,
+        color: CustomColors.loginButtonTextColor,
+        ),
+        Icon(
+          Icons.add,
+          color: CustomColors.loginButtonTextColor,
+        ),
+        Icon(
+          Icons.list,
+          color: CustomColors.loginButtonTextColor,
+        ),
+      ],
+      ),
     );
   }
 
@@ -37,7 +62,6 @@ class _UserRegisterState extends State<UserRegister> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            topImageContainer(height, topImage),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Form(
@@ -196,19 +220,6 @@ class _UserRegisterState extends State<UserRegister> {
       ),
     );
   }
-
-  Container topImageContainer(double height, String topImage) {
-    return Container(
-      height: height * .25,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          fit: BoxFit.cover,
-          image: AssetImage(topImage),
-        ),
-      ),
-    );
-  }
-
   Widget customSizedBox() => SizedBox(
         height: 20,
       );

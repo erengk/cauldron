@@ -1,10 +1,12 @@
-import 'package:cauldron/pages/admin/user_register_page.dart';
+import 'package:cauldron/screens/admin_screens/restaurant_page.dart';
+import 'package:cauldron/screens/admin_screens/user_register_page.dart';
+import 'package:cauldron/screens/auth/login_page.dart';
+import 'package:cauldron/screens/su_screens/register_admin.dart';
+import 'package:cauldron/screens/su_screens/su_home_page.dart';
+import 'package:cauldron/screens/user_screens/user_menu_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cauldron/pages/auth/login_page.dart';
-import 'package:cauldron/pages/auth/sign_up_page.dart';
-import 'package:cauldron/pages/home_page.dart';
 import 'package:cauldron/utils/customColors.dart';
 import 'firebase_options.dart';
 
@@ -26,16 +28,18 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Cauldron',
       routes: {
-        "/loginPage": (context) => LoginPage(),
-        "/signUp": (context) => SignUp(),
+        "/loginScreen": (context) => LoginScreen(),
         "/homePage": (context) => HomePage(),
-        "/userRegisterPage":(context) => UserRegister()
+        "/userRegister":(context) => UserRegister(),
+        "/userMenuPage": (context) => UserMenuPage(),
+        "/restaurantPage": (context) => RestaurantPage(),
+        "/adminRegisterScreen": (context) => AdminRegisterScreen(),
       },
       theme: ThemeData(
         scaffoldBackgroundColor: CustomColors.scaffoldBackgroundColor,
       ),
       home: Scaffold(
-        body: LoginPage(),
+        body: LoginScreen(),
       ),
     );
   }
