@@ -14,6 +14,10 @@ class AuthenticationService {
     }
   }
 
+  String getCurrentUID() {
+    return _auth.currentUser!.uid;
+  }
+
   // Firebase ile kaydolma
   Future signUp(String email, String password) async {
     try {
@@ -38,16 +42,17 @@ class AuthenticationService {
     List<String> collections = [];
     try {
       QuerySnapshot snapshot = await getCollection(collectionName).get();
-      snapshot.docs.forEach((doc) {
+      for (var doc in snapshot.docs) {
         collections.add(doc.id);
-      });
+      }
     } catch (e) {
       print(e.toString());
     }
     return collections;
   }
 
-  Future<String> registerFirebase(Map<String, String> fieldValue) async {
+  Future<String> registerFirebase(
+      String collection, Map<String, String> fieldValue) async {
     if (fieldValue.containsKey('id') && fieldValue.containsKey('password')) {
       try {
         await _auth.createUserWithEmailAndPassword(
@@ -55,7 +60,7 @@ class AuthenticationService {
             password: fieldValue['password']!);
 
         await db
-            .collection('users')
+            .collection(collection)
             .doc(_auth.currentUser!.uid)
             .set(fieldValue);
 

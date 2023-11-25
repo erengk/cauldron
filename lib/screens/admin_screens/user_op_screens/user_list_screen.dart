@@ -73,8 +73,9 @@ class _UserListState extends State<UserList> {
           return ListView.builder(
             itemCount: userData.length,
             itemBuilder: (context, index) {
-              var user = userData[index].data()
-              as Map<String, dynamic>; // Firestore dökümanı
+              var user = userData[index].data() as Map<String, dynamic>;
+              user['uid'] = userData[index].id;
+              // Firestore dökümanı
               return ListTile(
                 title: Text(user['name']), // Değiştirilecek alanı belirtin
                 subtitle: Text(user['email']),

@@ -4,6 +4,7 @@ import '../../utils/customColors.dart';
 import '../../widgets/custom_elevated_button.dart';
 import '../../widgets/custom_text_button.dart';
 import '../../widgets/popup.dart';
+import '../admin_screens/menu_page.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -72,7 +73,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     Navigator.pushNamed(context, "/adminHomePage");
                   }
                   else {
-                    Navigator.pushNamed(context, "/employeeHomePage");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MenuPage(),
+                      ),
+                    );
                   }
                 },
                 buttonText: 'Giriş Yap',

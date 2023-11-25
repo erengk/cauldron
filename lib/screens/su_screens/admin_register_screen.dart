@@ -164,6 +164,7 @@ class _AdminRegisterScreenState extends State<AdminRegisterScreen> {
                     final email = _emailController.text;
                     final password = _passwordController.text;
 
+
                     Map<String, String> keyValues = {
                       'id': id,
                       'name': name,
@@ -176,11 +177,11 @@ class _AdminRegisterScreenState extends State<AdminRegisterScreen> {
 
                     // Firebase ile kayıt işlemini gerçekleştir
                     final result = await AuthenticationService()
-                        .registerFirebase(keyValues);
+                        .registerFirebase('users', keyValues);
                     if (result == 'success') {
                       popUp(context, "Kayıt Başarılı",
                           "Kayıt Başarıyla Oluşturuldu");
-                    } else {
+                    }  else {
                       // TODO: Kayıt işlemi başarısız: HATA MESAJI GÖSTER
                     }
                   }
