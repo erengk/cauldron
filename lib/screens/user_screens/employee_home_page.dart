@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import '../../utils/customColors.dart';
 import '../../widgets/bottom_nav_bar.dart';
+import '../admin_screens/menu_page.dart';
 import '../admin_screens/restaurant_page.dart';
-import '../admin_screens/user_op_screens/user_op_main_screen.dart';
-import '../user_screens/user_menu_page.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class EmployeeHomePage extends StatefulWidget {
+  const EmployeeHomePage({super.key});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<EmployeeHomePage> createState() => _EmployeeHomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _EmployeeHomePageState extends State<EmployeeHomePage> {
+
   int _currentIndex = 1;
 
   void _onTabTapped(int index) {
@@ -26,19 +26,13 @@ class _HomePageState extends State<HomePage> {
     Widget currentPage;
     switch (_currentIndex) {
       case 0:
-        currentPage = const UserOpMainScreen();
-        break;
-        /*
-      case 1:
         currentPage = const MenuPage();
         break;
-      case 2:
-        currentPage = RestaurantPage();
+      case 1:
+        currentPage = const RestaurantPage();
         break;
-
-         */
       default:
-        currentPage = const UserOpMainScreen();
+        currentPage = const MenuPage();
     }
 
     return Scaffold(
@@ -47,7 +41,6 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: CustomColors.buttonColors,
         title: const Text('Cauldron'),
       ),
-      backgroundColor: CustomColors.textButtonColor,
       body: currentPage,
       bottomNavigationBar: BottomNavBar(
         currentIndex: _currentIndex,

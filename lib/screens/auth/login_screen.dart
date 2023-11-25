@@ -4,7 +4,6 @@ import '../../utils/customColors.dart';
 import '../../widgets/custom_elevated_button.dart';
 import '../../widgets/custom_text_button.dart';
 import '../../widgets/popup.dart';
-import '../admin_screens/menu_page.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -68,17 +67,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     popUp(context, "Hatalı Giriş",
                         "Kullanıcı adı veya Şifreniz Hatalı");
                   } else if (uid == "HnwBNl5CVGbzWBRUDU40TBhhLKw1") {
-                    Navigator.pushNamed(context, "/adminRegisterScreen");
+                    Navigator.pushNamed(context, "/superHomePage");
                   } else if (uid == "yk1rRtMH7QZfCKGKMYyvq1pXS823") {
-                    Navigator.pushNamed(context, "/userRegister");
+                    Navigator.pushNamed(context, "/adminHomePage");
                   }
                   else {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MenuPage(),
-                      ),
-                    );
+                    Navigator.pushNamed(context, "/employeeHomePage");
                   }
                 },
                 buttonText: 'Giriş Yap',

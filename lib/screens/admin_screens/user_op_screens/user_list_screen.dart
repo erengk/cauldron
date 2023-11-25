@@ -1,7 +1,10 @@
+import 'package:cauldron/screens/admin_screens/menu_page.dart';
+import 'package:cauldron/screens/admin_screens/user_op_screens/user_register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../service/authentication_service.dart';
 import '../../../utils/customColors.dart';
+import '../../../widgets/bottom_nav_bar.dart';
 
 class UserListScreen extends StatelessWidget {
   const UserListScreen({super.key});
@@ -22,12 +25,43 @@ class UserList extends StatefulWidget {
 }
 
 class _UserListState extends State<UserList> {
+  int _currentIndex = 1;
+
+  void _onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+  @override
+  Widget build(BuildContext context) {
+    Widget currentPage;
+    switch (_currentIndex) {
+      case 0:
+        currentPage = const UserRegister();
+        break;
+      case 1:
+        currentPage = const MenuPage();
+        break;
+      case 2:
+        currentPage = UserListScreen();
+        break;
+      default:
+        currentPage = const UserListScreen();
+    }
+
   final CollectionReference users = AuthenticationService()
       .getCollection('users'); // Firestore collection adını buraya ekleyin.
 
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: CustomColors.buttonColors,
+        title: const Text('Cauldron'),
+      ),
+      bottomNavigationBar: BottomNavBar(
+        currentIndex: _currentIndex,
+        onTap: _onTabTapped,
+      ),
       backgroundColor: CustomColors.textButtonColor,
       body: StreamBuilder(
         stream: users.snapshots(),

@@ -1,9 +1,12 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:cauldron/screens/admin_screens/user_op_screens/user_list_screen.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cauldron/utils/customColors.dart';
 import 'package:cauldron/utils/customTextStyle.dart';
+
+import '../../../widgets/bottom_nav_bar.dart';
+import '../menu_page.dart';
 
 class UserRegister extends StatefulWidget {
   const UserRegister({Key? key}) : super(key: key);
@@ -19,11 +22,33 @@ class _UserRegisterState extends State<UserRegister> {
   String password = "123456";
   String role = "waiter";
 
+  int _currentIndex = 1;
+
+  void _onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
   final formkey = GlobalKey<FormState>();
   final firebaseAuth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
+    Widget currentPage;
+    switch (_currentIndex) {
+      case 0:
+        currentPage = const UserRegister();
+        break;
+      case 1:
+        currentPage = const MenuPage();
+        break;
+      case 2:
+        currentPage = UserListScreen();
+        break;
+      default:
+        currentPage = const UserRegister();
+    }
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -31,27 +56,10 @@ class _UserRegisterState extends State<UserRegister> {
         title: const Text('Cauldron'),
       ),
       backgroundColor: CustomColors.bodyBackgroundColor,
-      bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: CustomColors.bodyBackgroundColor,
-        color: CustomColors.scaffoldBackgroundColor,
-        animationDuration: Duration(milliseconds: 300),
-        onTap:(index) {
-          debugPrint("Current Index is $index");
-        },
-        items:[
-        Icon(
-            Icons.home,
-        color: CustomColors.loginButtonTextColor,
-        ),
-        Icon(
-          Icons.add,
-          color: CustomColors.loginButtonTextColor,
-        ),
-        Icon(
-          Icons.list,
-          color: CustomColors.loginButtonTextColor,
-        ),
-      ],
+      body: currentPage,
+      bottomNavigationBar: BottomNavBar(
+        currentIndex: _currentIndex,
+        onTap: _onTabTapped,
       ),
     );
   }
@@ -221,13 +229,13 @@ class _UserRegisterState extends State<UserRegister> {
     );
   }
   Widget customSizedBox() => SizedBox(
-        height: 20,
-      );
+    height: 20,
+  );
 
   Widget customText(String text, Color color) => Text(
-        text,
-        style: TextStyle(color: color),
-      );
+    text,
+    style: TextStyle(color: color),
+  );
 
   InputDecoration customInputDecoration(String hintText) {
     return InputDecoration(
