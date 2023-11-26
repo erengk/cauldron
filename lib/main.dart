@@ -1,12 +1,11 @@
+import 'package:cauldron/screens/admin_screens/employee_page.dart';
 import 'package:cauldron/screens/admin_screens/menu_page.dart';
 import 'package:cauldron/screens/admin_screens/restaurant_page.dart';
-import 'package:cauldron/screens/admin_screens/user_op_screens/admin_home_page.dart';
+import 'package:cauldron/screens/admin_screens/user_op_screens/admin_page.dart';
 import 'package:cauldron/screens/admin_screens/user_op_screens/user_list_screen.dart';
 import 'package:cauldron/screens/admin_screens/user_op_screens/user_register_page.dart';
 import 'package:cauldron/screens/auth/login_screen.dart';
 import 'package:cauldron/screens/su_screens/admin_register_screen.dart';
-import 'package:cauldron/screens/su_screens/super_home_page.dart';
-import 'package:cauldron/screens/user_screens/employee_home_page.dart';
 import 'package:cauldron/screens/user_screens/user_menu_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -33,15 +32,14 @@ class MyApp extends StatelessWidget {
       title: 'Cauldron',
       routes: {
         "/loginScreen": (context) => LoginScreen(),
-        "/superHomePage": (context) => SuperHomePage(),
-        "/adminHomePage": (context) => AdminHomePage(),
-        "/employeeHomePage": (context) => EmployeeHomePage(),
         "/userMenuPage": (context) => UserMenuPage(),
         "/menuPage": (context) => MenuPage(),
         "/restaurantPage": (context) => RestaurantPage(),
         "/adminRegisterScreen": (context) => AdminRegisterScreen(),
         "/userListScreen": (context) => UserListScreen(),
         "/userRegister": (context) => UserRegister(),
+        "/adminPage": (context) => AdminPage(),
+        "/employeePage": (context) => EmployeePage(),
       },
       theme: ThemeData(
         scaffoldBackgroundColor: CustomColors.scaffoldBackgroundColor,

@@ -1,49 +1,110 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import '../../service/authentication_service.dart';
 import '../../utils/customColors.dart';
-import '../../widgets/bottom_nav_bar.dart';
-import 'menu_page.dart';
 
-class RestaurantPage extends StatefulWidget {
+class RestaurantPage extends StatelessWidget {
   const RestaurantPage({super.key});
 
   @override
-  State<RestaurantPage> createState() => _RestaurantPageState();
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: TableList(),
+    );
+  }
 }
 
-class _RestaurantPageState extends State<RestaurantPage> {
-  int _currentIndex = 1;
-
-  void _onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
+class TableList extends StatefulWidget {
+  const TableList({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    Widget currentPage;
-    switch (_currentIndex) {
-      case 0:
-        currentPage = const MenuPage();
-        break;
-      case 1:
-        currentPage = const RestaurantPage();
-        break;
-      default:
-        currentPage = const MenuPage();
-    }
+  _TableListState createState() => _TableListState();
 
-      return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text('Restaurant'),
-          backgroundColor: CustomColors.scaffoldBackgroundColor,
-        ),
-        backgroundColor: CustomColors.bodyBackgroundColor,
-        body: currentPage,
-        bottomNavigationBar: BottomNavBar(
-          currentIndex: _currentIndex,
-          onTap: _onTabTapped,
-        ),);
-    }
+}
+
+class _TableListState extends State<TableList>{
+  @override
+  Widget build(BuildContext buildContext){
+    final CollectionReference tables = AuthenticationService()
+        .getCollection('tables');
+    return Scaffold(
+      backgroundColor: CustomColors.bodyBackgroundColor,
+      body: StreamBuilder(
+        stream: tables.snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const CircularProgressIndicator();
+          }
+          var tableData = snapshot.data!.docs;
+          return ListView.builder(
+            itemCount: tableData.length,
+            itemBuilder: (context, index) {
+              var table = tableData[index].data() as Map<String, dynamic>;
+              table['uid'] = tableData[index].id;
+              return ListTile(
+                title: Text(table['Masa No']),
+                onTap: () {
+                  openPopup(context, table);
+                },
+              );
+            },
+          );
+        },
+      ),
+
+    );
   }
+  void openPopup(BuildContext context, Map<String, dynamic> item) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            item['Masa No'] + ' ' + item['Adisyon Durumu'],
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Pop-up içeriği burada oluşturulabilir
+
+              TextField(
+                controller: TextEditingController(text: item['adisyon']),
+                onChanged: (value) {
+                  // TextField'dan alınan değeri saklayabilirsiniz
+                },
+              ),
+              const Text(
+                "Adisyon Durumu",
+                style: TextStyle(fontSize: 10),
+                textAlign: TextAlign.left,
+              ),
+            ],
+          ),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                // Değişiklikleri kaydetmek için Firestore güncellemesi yapabilirsiniz
+              },
+              child: const Text('Kaydet'),
+            ),
+            TextButton(
+              onPressed: () {
+                // Elemanı silmek için bir fonksiyon çağırabilirsiniz
+              },
+              child: const Text('Sil'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Kapat'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}

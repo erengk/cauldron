@@ -1,9 +1,7 @@
 import 'package:cauldron/models/food.dart';
-import 'package:cauldron/screens/admin_screens/restaurant_page.dart';
 import 'package:flutter/material.dart';
 import '../../models/food_tile.dart';
 import '../../utils/customColors.dart';
-import '../../widgets/bottom_nav_bar.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({super.key});
@@ -13,13 +11,6 @@ class MenuPage extends StatefulWidget {
 }
 
 class _MenuPageState extends State<MenuPage> {
-  int _currentIndex = 1;
-
-  void _onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
 
   List foodMenu = [
     Food(
@@ -48,57 +39,24 @@ class _MenuPageState extends State<MenuPage> {
 
   @override
   Widget build(BuildContext context) {
-    Widget currentPage;
-    switch (_currentIndex) {
-      case 0:
-        currentPage = const MenuPage();
-        break;
-      case 1:
-        currentPage = const RestaurantPage();
-        break;
-      default:
-        currentPage = const MenuPage();
-    }
+
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Menü'),
-        backgroundColor: CustomColors.scaffoldBackgroundColor,
-      ),
       backgroundColor: CustomColors.bodyBackgroundColor,
-      body: currentPage,
-      bottomNavigationBar: BottomNavBar(
-        currentIndex: _currentIndex,
-        onTap: _onTabTapped,
-      ),
-    );
-  }
-
-  SingleChildScrollView appBody() {
-    return SingleChildScrollView(
-      child: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(26),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(26),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Expanded(
-                    child: ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: foodMenu.length,
-                      itemBuilder: (context, index) => FoodTile(
-                        food: foodMenu[index],
-                      ),
-                    ),
-                  ),
-                ],
+            Expanded(
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: foodMenu.length,
+                itemBuilder: (context, index) => FoodTile(
+                  food: foodMenu[index],
+                ),
               ),
-            ),
-          ],
-        ),
+            ),],),
       ),
     );
   }

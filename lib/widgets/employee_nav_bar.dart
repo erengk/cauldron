@@ -1,18 +1,19 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+
 import '../utils/customColors.dart';
 
-class BottomNavBar extends StatefulWidget {
+class EmployeeNavBar extends StatefulWidget {
   final int currentIndex;
   final ValueChanged<int> onTap;
 
-  const BottomNavBar({super.key, required this.currentIndex, required this.onTap});
+  const EmployeeNavBar({super.key, required this.currentIndex, required this.onTap});
 
   @override
-  _BottomNavBarState createState() => _BottomNavBarState();
+  State<EmployeeNavBar> createState() => _EmployeeNavBarState();
 }
 
-class _BottomNavBarState extends State<BottomNavBar> {
+class _EmployeeNavBarState extends State<EmployeeNavBar> {
   @override
   Widget build(BuildContext context) {
     return CurvedNavigationBar(
@@ -23,12 +24,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
       onTap: widget.onTap,
       items: [
         Icon(
-          Icons.group_add,
+          Icons.restaurant_menu,
           size: 30,
           color: CustomColors.bodyBackgroundColor,
         ),
         Icon(
-          Icons.list,
+          Icons.table_restaurant_rounded,
           size: 30,
           color: CustomColors.bodyBackgroundColor,
         ),

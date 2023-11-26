@@ -1,19 +1,18 @@
+import 'package:cauldron/screens/admin_screens/restaurant_page.dart';
+import 'package:cauldron/widgets/employee_nav_bar.dart';
 import 'package:flutter/material.dart';
 import '../../utils/customColors.dart';
-import '../../widgets/bottom_nav_bar.dart';
-import '../admin_screens/menu_page.dart';
-import '../admin_screens/restaurant_page.dart';
+import 'menu_page.dart';
 
-class EmployeeHomePage extends StatefulWidget {
-  const EmployeeHomePage({super.key});
+class EmployeePage extends StatefulWidget {
+  const EmployeePage({super.key});
 
   @override
-  State<EmployeeHomePage> createState() => _EmployeeHomePageState();
+  State<EmployeePage> createState() => _EmployeePageState();
 }
 
-class _EmployeeHomePageState extends State<EmployeeHomePage> {
-
-  int _currentIndex = 1;
+class _EmployeePageState extends State<EmployeePage> {
+  int _currentIndex = 0;
 
   void _onTabTapped(int index) {
     setState(() {
@@ -34,18 +33,19 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
       default:
         currentPage = const MenuPage();
     }
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: CustomColors.buttonColors,
-        title: const Text('Cauldron'),
+        title: Text('Employee'),
+        backgroundColor: CustomColors.scaffoldBackgroundColor,
       ),
+      backgroundColor: CustomColors.bodyBackgroundColor,
       body: currentPage,
-      bottomNavigationBar: BottomNavBar(
+      bottomNavigationBar: EmployeeNavBar(
         currentIndex: _currentIndex,
         onTap: _onTabTapped,
       ),
     );
   }
 }
+

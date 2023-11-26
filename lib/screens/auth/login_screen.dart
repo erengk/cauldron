@@ -1,3 +1,4 @@
+import 'package:cauldron/screens/admin_screens/employee_page.dart';
 import 'package:flutter/material.dart';
 import '../../service/authentication_service.dart';
 import '../../utils/customColors.dart';
@@ -68,15 +69,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     popUp(context, "Hatalı Giriş",
                         "Kullanıcı adı veya Şifreniz Hatalı");
                   } else if (uid == "HnwBNl5CVGbzWBRUDU40TBhhLKw1") {
-                    Navigator.pushNamed(context, "/superHomePage");
+                    Navigator.pushNamed(context, "/adminRegisterScreen");
                   } else if (uid == "yk1rRtMH7QZfCKGKMYyvq1pXS823") {
-                    Navigator.pushNamed(context, "/adminHomePage");
+                    Navigator.pushNamed(context, "/adminPage");
                   }
                   else {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => MenuPage(),
+                        builder: (context) => EmployeePage(),
                       ),
                     );
                   }

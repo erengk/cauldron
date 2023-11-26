@@ -1,21 +1,19 @@
-import 'package:cauldron/screens/admin_screens/restaurant_page.dart';
 import 'package:cauldron/screens/admin_screens/user_op_screens/user_list_screen.dart';
 import 'package:cauldron/screens/admin_screens/user_op_screens/user_register_page.dart';
+import 'package:cauldron/widgets/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
+
 import '../../../utils/customColors.dart';
-import '../../../widgets/bottom_nav_bar.dart';
 
-
-class AdminHomePage extends StatefulWidget {
-  const AdminHomePage({super.key});
+class AdminPage extends StatefulWidget {
+  const AdminPage({super.key});
 
   @override
-  State<AdminHomePage> createState() => _AdminHomePageState();
+  State<AdminPage> createState() => _AdminPageState();
 }
 
-class _AdminHomePageState extends State<AdminHomePage> {
-
-  int _currentIndex = 1;
+class _AdminPageState extends State<AdminPage> {
+  int _currentIndex = 0;
 
   void _onTabTapped(int index) {
     setState(() {
@@ -31,21 +29,18 @@ class _AdminHomePageState extends State<AdminHomePage> {
         currentPage = const UserRegister();
         break;
       case 1:
-        currentPage = const RestaurantPage();
-        break;
-      case 2:
-        currentPage = UserListScreen();
+        currentPage = const UserListScreen();
         break;
       default:
         currentPage = const UserRegister();
     }
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: CustomColors.buttonColors,
-        title: const Text('Cauldron'),
+        title: Text('Admin'),
+        backgroundColor: CustomColors.scaffoldBackgroundColor,
       ),
+      backgroundColor: CustomColors.bodyBackgroundColor,
       body: currentPage,
       bottomNavigationBar: BottomNavBar(
         currentIndex: _currentIndex,
