@@ -20,14 +20,13 @@ class TableList extends StatefulWidget {
 
   @override
   _TableListState createState() => _TableListState();
-
 }
 
-class _TableListState extends State<TableList>{
+class _TableListState extends State<TableList> {
   @override
-  Widget build(BuildContext buildContext){
-    final CollectionReference tables = AuthenticationService()
-        .getCollection('tables');
+  Widget build(BuildContext buildContext) {
+    final CollectionReference tables =
+        AuthenticationService().getCollection('tables');
     return Scaffold(
       backgroundColor: CustomColors.bodyBackgroundColor,
       body: StreamBuilder(
@@ -43,7 +42,7 @@ class _TableListState extends State<TableList>{
               var table = tableData[index].data() as Map<String, dynamic>;
               table['uid'] = tableData[index].id;
               return ListTile(
-                title: Text(table['Masa No']),
+                title: Text(table['tableId']),
                 onTap: () {
                   openPopup(context, table);
                 },
@@ -52,57 +51,177 @@ class _TableListState extends State<TableList>{
           );
         },
       ),
-
     );
   }
+
   void openPopup(BuildContext context, Map<String, dynamic> item) {
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: Text(
-            item['Masa No'] + ' ' + item['Adisyon Durumu'],
+            item['tableId'],
             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
-          content: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Pop-up içeriği burada oluşturulabilir
+          content: Padding(
+            padding: const EdgeInsets.all(.5),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    child: TextFormField(
+                      textAlign: TextAlign.center,
+                      controller:
+                          TextEditingController(text: item['Hamburger']),
+                      decoration: const InputDecoration(labelText: 'Hamburger'),
+                      onChanged: (value) {
+                        item['Hamburger'] =
+                            value; // Değiştirilecek alan: item['Hamburger'
+                      },
+                    ),
+                  ),
+                ),
+                // Pop-up içeriği burada oluşturulabilir
+                Expanded(
+                  child: Container(
+                    child: TextFormField(
+                      textAlign: TextAlign.center,
+                      controller:
+                          TextEditingController(text: item['Körili Tavuk']),
+                      decoration:
+                          const InputDecoration(labelText: 'Körili Tavuk'),
+                      onChanged: (value) {
+                        item['Körili Tavuk'] =
+                            value; // Değiştirilecek alan: item['Körili Tavuk'
+                      },
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    child: TextFormField(
+                      textAlign: TextAlign.center,
+                      controller: TextEditingController(text: item['Pilav']),
+                      decoration: const InputDecoration(labelText: 'Pilav'),
+                      onChanged: (value) {
+                        item['Pilav'] =
+                            value; // Değiştirilecek alan: item['Pilav'
+                      },
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    child: TextFormField(
+                      textAlign: TextAlign.center,
+                      controller:
+                          TextEditingController(text: item['Somon Izgara']),
+                      decoration:
+                          const InputDecoration(labelText: 'Somon Izgara'),
+                      onChanged: (value) {
+                        item['Somon Izgara'] =
+                            value; // Değiştirilecek alan: item['Somon Izgara'
+                      },
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    child: TextFormField(
+                      textAlign: TextAlign.center,
+                      controller: TextEditingController(text: item['Spagetti']),
+                      decoration: const InputDecoration(labelText: 'Spagetti'),
+                      onChanged: (value) {
+                        item['Spagetti'] =
+                            value; // Değiştirilecek alan: item['Spagetti'
+                      },
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    child: TextFormField(
+                      textAlign: TextAlign.center,
+                      controller: TextEditingController(text: item['Cupcake']),
+                      decoration: const InputDecoration(labelText: 'Cupcake'),
+                      onChanged: (value) {
+                        item['Cupcake'] =
+                            value; // Değiştirilecek alan: item['Cupcake'
+                      },
+                    ),
+                  ),
+                ),
 
-              TextField(
-                controller: TextEditingController(text: item['adisyon']),
-                onChanged: (value) {
-                  // TextField'dan alınan değeri saklayabilirsiniz
-                },
-              ),
-              const Text(
-                "Adisyon Durumu",
-                style: TextStyle(fontSize: 10),
-                textAlign: TextAlign.left,
-              ),
-            ],
+                Expanded(
+                  child: Container(
+                    child: TextFormField(
+                      textAlign: TextAlign.center,
+                      controller: TextEditingController(text: item['Pankek']),
+                      decoration: const InputDecoration(labelText: 'Pankek'),
+                      onChanged: (value) {
+                        item['Pankek'] =
+                            value; // Değiştirilecek alan: item['Pankek'
+                      },
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    child: TextFormField(
+                      textAlign: TextAlign.center,
+                      controller: TextEditingController(text: item['Ramen']),
+                      decoration: const InputDecoration(labelText: 'Ramen'),
+                      onChanged: (value) {
+                        item['Ramen'] =
+                            value; // Değiştirilecek alan: item['Ramen'
+                      },
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    child: TextButton(
+                      onPressed: () {
+                        CollectionReference db = AuthenticationService()
+                            .getCollection(
+                                'tables'); // Firestore collection adını buraya ekleyin.
+                        db.doc(item['uid']).set(item);
+                        // Değişiklikleri kaydetmek için Firestore güncellemesi yapabilirsiniz
+                      },
+                      child: const Text('Kaydet'),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    child: TextButton(
+                      onPressed: () {
+                        CollectionReference db = AuthenticationService()
+                            .getCollection(
+                                'tables'); // Firestore collection adını buraya ekleyin.
+                        db.doc(item['uid']).delete();
+                        Navigator.of(context).pop();
+                        // Elemanı silmek için bir fonksiyon çağırabilirsiniz
+                      },
+                      child: const Text('Sil'),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('Kapat'),
+                        style: TextButton.styleFrom()),
+                  ),
+                ),
+              ],
+            ),
           ),
-          actions: [
-            ElevatedButton(
-              onPressed: () {
-                // Değişiklikleri kaydetmek için Firestore güncellemesi yapabilirsiniz
-              },
-              child: const Text('Kaydet'),
-            ),
-            TextButton(
-              onPressed: () {
-                // Elemanı silmek için bir fonksiyon çağırabilirsiniz
-              },
-              child: const Text('Sil'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Kapat'),
-            ),
-          ],
         );
       },
     );
