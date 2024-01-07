@@ -89,11 +89,11 @@ class _TableListState extends State<TableList> {
                     child: TextFormField(
                       textAlign: TextAlign.center,
                       controller:
-                          TextEditingController(text: item['Körili Tavuk']),
+                          TextEditingController(text: item['KöriliTavuk']),
                       decoration:
                           const InputDecoration(labelText: 'Körili Tavuk'),
                       onChanged: (value) {
-                        item['Körili Tavuk'] =
+                        item['KöriliTavuk'] =
                             value; // Değiştirilecek alan: item['Körili Tavuk'
                       },
                     ),
@@ -117,11 +117,11 @@ class _TableListState extends State<TableList> {
                     child: TextFormField(
                       textAlign: TextAlign.center,
                       controller:
-                          TextEditingController(text: item['Somon Izgara']),
+                          TextEditingController(text: item['SomonIzgara']),
                       decoration:
                           const InputDecoration(labelText: 'Somon Izgara'),
                       onChanged: (value) {
-                        item['Somon Izgara'] =
+                        item['SomonIzgara'] =
                             value; // Değiştirilecek alan: item['Somon Izgara'
                       },
                     ),
